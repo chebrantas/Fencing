@@ -6,7 +6,12 @@
     <title>Fencing - Home</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquerybegin")
+
+    @*<script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -40,6 +45,17 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $("#btnrefresh").click(function () {
+            var ref = 'Test/RefreshDepartments';
+            $.each(result, function (index, val) {
+                $('#Names')
+                    .append($("<option></option>")
+                        .attr("value", val.Text)
+                        .text(val.Text));
+            });
+        });
+    </script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('select').removeAttr('multiple');

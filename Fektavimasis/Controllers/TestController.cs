@@ -16,6 +16,26 @@ namespace Fektavimasis.Controllers
     {
         private ParticipantsDB db = new ParticipantsDB();
 
+        //create score listbox
+        private List<SelectListItem> Score()
+        {
+            List<SelectListItem> listSelectListResult = new List<SelectListItem>();
+            for (int i = 0; i < 4; i++)
+            {
+                SelectListItem selectListResult = new SelectListItem()
+                {
+                    Text = i.ToString(),
+                    Value = i.ToString(),
+                };
+                if (i==0)
+                {
+                    selectListResult.Selected = true;
+                }
+                listSelectListResult.Add(selectListResult);
+            }
+            return listSelectListResult;
+        }
+
         // GET: Test
         public ActionResult Index()
         {
@@ -25,9 +45,70 @@ namespace Fektavimasis.Controllers
         public ActionResult Bandom()
         {
             //return View(db.ParticipantMens.ToList());
+            ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
             ViewBag.ParticipantsId = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
+            ViewBag.ScoreId = Score();
+            ViewBag.Score2Id = Score();
+
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public ActionResult Bandom(IEnumerable<string> ParticipantsId, IEnumerable<string> Participants2Id, IEnumerable<string> ScoreId, IEnumerable<string> Score2Id, ParticipantsViewModel Namesmodel)
+        {
+            if (ScoreId == null)
+            {
+                ViewBag.ParticipantsId = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
+                ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
+                ViewBag.ScoreId = Score();
+                ViewBag.Score2Id = Score();
+                ViewBag.UpdateInfo = "No Result are selected";
+                return PartialView("Bandom");
+            }
+            else if (Score2Id == null)
+            {
+                ViewBag.ParticipantsId = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
+                ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
+                ViewBag.ScoreId = Score();
+                ViewBag.Score2Id = Score();
+                ViewBag.UpdateInfo = "No Result are selected";
+                return PartialView("Bandom");
+            }
+            else if (ParticipantsId == null)
+            {
+                ViewBag.ParticipantsId = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
+                ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
+                ViewBag.ScoreId = Score();
+                ViewBag.Score2Id = Score();
+                ViewBag.UpdateInfo = "No Names are selected";
+                return PartialView("Bandom");
+            }
+            else if (Participants2Id == null)
+            {
+                ViewBag.ParticipantsId = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
+                ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
+                ViewBag.ScoreId = Score();
+                ViewBag.Score2Id = Score();
+                ViewBag.UpdateInfo = "No Names are selected";
+                return PartialView("Bandom");
+            }
+            else
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("Players " + string.Join(",", db.ParticipantMens.Find(Int32.Parse(ParticipantsId.First())).NameSurname) + " vs " + string.Join(",", db.ParticipantMens.Find(Int32.Parse(Participants2Id.First())).NameSurname) + " ended " + string.Join(",", ScoreId) + string.Join(",", ScoreId));
+                ViewBag.ParticipantsId = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname", ParticipantsId.First());
+                ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname", Participants2Id.Last());
+                ViewBag.ScoreId = Score();
+                ViewBag.Score2Id = Score();
+                ViewBag.UpdateInfo = sb.ToString();
+                //return sb.ToString();
+                return PartialView("Bandom");
+                //TODO padaryti kad score nunulintu po posto
+            }
+        }
+
 
         //sitas geras variantas
         public ActionResult BandomDu()
@@ -64,23 +145,92 @@ namespace Fektavimasis.Controllers
         }
 
         [HttpPost]
-        public string BandomDu(IEnumerable<string> Names , IEnumerable<string> Result)
+        [ValidateAntiForgeryToken]
+
+        public ActionResult BandomDu(IEnumerable<string> Names, IEnumerable<string> Result, ParticipantsViewModel Namesmodel)
         {
             if (Result == null)
             {
-                return "No Result are selected";
+                ViewBag.UpdateInfo = "No Result are selected";
+                return PartialView("BandomDu");
             }
             else if (Names == null)
             {
-                return "No Names are selected";
+                ViewBag.UpdateInfo = "No Names are selected";
+                return PartialView("BandomDu");
             }
             else
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("Players " + string.Join(",", Names) + " ended " + string.Join(",", Result));
-                return sb.ToString();
+                ViewBag.UpdateInfo = sb.ToString();
+                //return sb.ToString();
+                return PartialView("BandomDu");
             }
         }
+
+
+
+
+        public JsonResult RefreshDepartments()
+        {
+            return Json(GetDepartments(), JsonRequestBehavior.AllowGet);
+        }
+
+        private SelectList GetDepartments()
+        {
+            var deparments = GetDepartments();
+            SelectList list = new SelectList(deparments);
+            return list;
+        }
+
+
+        //--------------------------
+        // GET: Destination/Edit/5
+        public ActionResult Edit1(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ParticipantMen destination = db.ParticipantMens.Find(id);
+            if (destination == null)
+            {
+                return HttpNotFound();
+            }
+            return View(destination);
+        }
+
+        // POST: Destination/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit1([Bind(Include = "DestinationId,Name,Country,Description,Photo")] ParticipantsViewModel destination)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(destination).State = EntityState.Modified;
+                db.SaveChanges();
+                //return RedirectToAction("Index");
+                return View(destination);
+            }
+            return View(destination);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //-----------------------------
 
         // GET: Test/Details/5
         public ActionResult Details(int? id)
