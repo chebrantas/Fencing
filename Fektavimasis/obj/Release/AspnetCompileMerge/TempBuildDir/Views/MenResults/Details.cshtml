@@ -1,0 +1,58 @@
+﻿@model Fektavimasis.Models.MenResult
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MenResult</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ParticipantMenId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParticipantMenId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParticipantCompetingId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParticipantCompetingId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Piercing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Piercing)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Received)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Received)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Round)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Round)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MenResultId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -26,15 +26,40 @@ namespace Fektavimasis.Controllers
                 {
                     Text = i.ToString(),
                     Value = i.ToString(),
+                    Selected = (i == 0 ? true : false)
                 };
-                if (i==0)
-                {
-                    selectListResult.Selected = true;
-                }
+                //if (i==0)
+                //{
+                //    selectListResult.Selected = true;
+                //}
                 listSelectListResult.Add(selectListResult);
             }
             return listSelectListResult;
         }
+
+        //dalyviu listboxui
+        private List<SelectListItem> Members(int id = 0)
+        {
+            List<SelectListItem> listSelectListResult = new List<SelectListItem>();
+            foreach (var item in db.ParticipantMens)
+            {
+                SelectListItem selectListResult = new SelectListItem()
+                {
+                    Text = item.NameSurname,
+                    Value = item.ParticipantMenId.ToString(),
+                    Selected = (item.ParticipantMenId == id ? true : false)
+                };
+
+                //if (item.ParticipantMenId == id)
+                //{
+                //    selectListResult.Selected = true;
+                //}
+                listSelectListResult.Add(selectListResult);
+            }
+
+            return listSelectListResult;
+        }
+
 
         // GET: Test
         public ActionResult Index()
@@ -45,8 +70,10 @@ namespace Fektavimasis.Controllers
         public ActionResult Bandom()
         {
             //return View(db.ParticipantMens.ToList());
-            ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
-            ViewBag.ParticipantsId = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
+            //ViewBag.ParticipantsId = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
+            ViewBag.ParticipantsId = Members();
+            //ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
+            ViewBag.Participants2Id = Members();
             ViewBag.ScoreId = Score();
             ViewBag.Score2Id = Score();
 
@@ -64,7 +91,7 @@ namespace Fektavimasis.Controllers
                 ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
                 ViewBag.ScoreId = Score();
                 ViewBag.Score2Id = Score();
-                ViewBag.UpdateInfo = "No Result are selected";
+                ViewBag.UpdateInfo = "No Result 1 player are selected";
                 return PartialView("Bandom");
             }
             else if (Score2Id == null)
@@ -73,7 +100,7 @@ namespace Fektavimasis.Controllers
                 ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
                 ViewBag.ScoreId = Score();
                 ViewBag.Score2Id = Score();
-                ViewBag.UpdateInfo = "No Result are selected";
+                ViewBag.UpdateInfo = "No Result 2 player are selected";
                 return PartialView("Bandom");
             }
             else if (ParticipantsId == null)
@@ -82,7 +109,7 @@ namespace Fektavimasis.Controllers
                 ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
                 ViewBag.ScoreId = Score();
                 ViewBag.Score2Id = Score();
-                ViewBag.UpdateInfo = "No Names are selected";
+                ViewBag.UpdateInfo = "No Names for player 1 are selected";
                 return PartialView("Bandom");
             }
             else if (Participants2Id == null)
@@ -91,18 +118,22 @@ namespace Fektavimasis.Controllers
                 ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname");
                 ViewBag.ScoreId = Score();
                 ViewBag.Score2Id = Score();
-                ViewBag.UpdateInfo = "No Names are selected";
+                ViewBag.UpdateInfo = "No Names for player 2 are selected";
                 return PartialView("Bandom");
             }
             else
             {
                 StringBuilder sb = new StringBuilder();
-                sb.Append("Players " + string.Join(",", db.ParticipantMens.Find(Int32.Parse(ParticipantsId.First())).NameSurname) + " vs " + string.Join(",", db.ParticipantMens.Find(Int32.Parse(Participants2Id.First())).NameSurname) + " ended " + string.Join(",", ScoreId) + string.Join(",", ScoreId));
-                ViewBag.ParticipantsId = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname", ParticipantsId.First());
-                ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname", Participants2Id.Last());
+                //sb.Append("Players " + string.Join(",", db.ParticipantMens.Find(Int32.Parse(ParticipantsId.First())).NameSurname) + " vs " + string.Join(",", db.ParticipantMens.Find(Int32.Parse(Participants2Id.First())).NameSurname) + " ended " + string.Join(",", ScoreId) + string.Join(",", Score2Id));
+                string info = $"{db.ParticipantMens.Find(Int32.Parse(ParticipantsId.First())).NameSurname} vs {db.ParticipantMens.Find(Int32.Parse(Participants2Id.First())).NameSurname} - {ScoreId.First()}:{Score2Id.First()}";
+                ViewBag.ParticipantsId = Members(2);
+                ViewBag.Participants2Id = Members();
+                //ViewBag.ParticipantsId = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname", ParticipantsId.First());
+                //ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname", Participants2Id.Last());
                 ViewBag.ScoreId = Score();
                 ViewBag.Score2Id = Score();
-                ViewBag.UpdateInfo = sb.ToString();
+                //ViewBag.UpdateInfo = sb.ToString();
+                ViewBag.UpdateInfo = info;
                 //return sb.ToString();
                 return PartialView("Bandom");
                 //TODO padaryti kad score nunulintu po posto

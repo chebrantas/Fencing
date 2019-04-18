@@ -1,0 +1,48 @@
+﻿@model Fektavimasis.Models.ViewModel.ParticipantsViewModel
+
+@{
+    ViewBag.Title = "BandomDu";
+}
+
+
+<h2>Results</h2>
+
+<div id="updateField">
+    @using (Ajax.BeginForm("BandomDu", "Test", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "updateField" }))
+    {
+
+        @Html.AntiForgeryToken()
+
+      
+        @Html.ListBoxFor(m => m.Result, Model.Result, new { size = 4, @class = "form-control-result1" })
+        @*@Html.ListBoxFor(m => m.Result, Model.Result, new { size = 4, @class = "form-control-result2" })*@
+        <br />
+        <input type="submit" value="Submit" class="btn-success form-control-resultbtn" />
+        <br />
+        <br />
+        <br />
+        <br />
+        @Html.ListBoxFor(m => m.Names, Model.Names, new { size = 40, @class = "form-control" })
+        @*@Html.ListBoxFor(m => m.Names, Model.Names, new { size = 40, @class = "form-control" })*@
+    }
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+    @*@using (Html.BeginForm())
+        {
+            @Html.ListBoxFor(m => m.Names, Model.Names, new { size = 40, @class = "form-control" })
+            @Html.ListBoxFor(m => m.Names, Model.Names, new { size = 40, @class = "form-control" })
+
+        }*@
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-12 text-success">
+            @ViewBag.UpdateInfo
+        </div>
+    </div>
+
+</div>
+
