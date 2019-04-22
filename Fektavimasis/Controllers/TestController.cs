@@ -37,6 +37,28 @@ namespace Fektavimasis.Controllers
             return listSelectListResult;
         }
 
+
+        //Roundo dropdownlistui
+        private List<SelectListItem> Round()
+        {
+            List<SelectListItem> listSelectListResult = new List<SelectListItem>();
+            for (int i = 1; i < 5; i++)
+            {
+                SelectListItem selectListResult = new SelectListItem()
+                {
+                    Text = i.ToString(),
+                    Value = i.ToString(),
+                    Selected = (i == 0 ? true : false)
+                };
+                //if (i==0)
+                //{
+                //    selectListResult.Selected = true;
+                //}
+                listSelectListResult.Add(selectListResult);
+            }
+            return listSelectListResult;
+        }
+
         //dalyviu listboxui
         private List<SelectListItem> Members(int id = 0)
         {
@@ -76,6 +98,8 @@ namespace Fektavimasis.Controllers
             ViewBag.Participants2Id = Members();
             ViewBag.ScoreId = Score();
             ViewBag.Score2Id = Score();
+            ViewBag.RoundId = Round();
+
 
             return View();
         }
@@ -83,7 +107,7 @@ namespace Fektavimasis.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Bandom(IEnumerable<string> ParticipantsId, IEnumerable<string> Participants2Id, IEnumerable<string> ScoreId, IEnumerable<string> Score2Id, ParticipantsViewModel Namesmodel)
+        public ActionResult Bandom(IEnumerable<string> ParticipantsId, IEnumerable<string> Participants2Id, IEnumerable<string> ScoreId, IEnumerable<string> Score2Id, IEnumerable<string> RoundId, ParticipantsViewModel Namesmodel)
         {
             if (ScoreId == null)
             {
@@ -125,16 +149,36 @@ namespace Fektavimasis.Controllers
             {
                 StringBuilder sb = new StringBuilder();
                 //sb.Append("Players " + string.Join(",", db.ParticipantMens.Find(Int32.Parse(ParticipantsId.First())).NameSurname) + " vs " + string.Join(",", db.ParticipantMens.Find(Int32.Parse(Participants2Id.First())).NameSurname) + " ended " + string.Join(",", ScoreId) + string.Join(",", Score2Id));
-                string info = $"{db.ParticipantMens.Find(Int32.Parse(ParticipantsId.First())).NameSurname} vs {db.ParticipantMens.Find(Int32.Parse(Participants2Id.First())).NameSurname} - {ScoreId.First()}:{Score2Id.First()}";
-                ViewBag.ParticipantsId = Members(2);
+                string info = $"Roundas:{RoundId.First()} {db.ParticipantMens.Find(Int32.Parse(ParticipantsId.First())).NameSurname} vs {db.ParticipantMens.Find(Int32.Parse(Participants2Id.First())).NameSurname} - {ScoreId.First()}:{Score2Id.First()}";
+                ViewBag.ParticipantsId = Members();
                 ViewBag.Participants2Id = Members();
                 //ViewBag.ParticipantsId = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname", ParticipantsId.First());
                 //ViewBag.Participants2Id = new SelectList(db.ParticipantMens, "ParticipantMenId", "NameSurname", Participants2Id.Last());
                 ViewBag.ScoreId = Score();
                 ViewBag.Score2Id = Score();
+                ViewBag.RoundId = Round();
+
                 //ViewBag.UpdateInfo = sb.ToString();
                 ViewBag.UpdateInfo = info;
                 //return sb.ToString();
+
+                //Irasoma i DB
+                MenResult newRecord = new MenResult();
+                //nesupranta Parse
+                //var test = db.MenResults.Where(x => x.ParticipantMenId == Int32.Parse(ParticipantsId.First())).Where(y => y.ParticipantCompetingId == Int32.Parse(Participants2Id.First())).First();
+                
+                newRecord = new MenResult
+                {
+                    ParticipantMenId = Int32.Parse(ParticipantsId.First()),
+                    ParticipantCompetingId = Int32.Parse(Participants2Id.First()),
+                    Piercing = Int32.Parse(ScoreId.First()),
+                    Received = Int32.Parse(Score2Id.First()),
+                    Round = Int32.Parse(RoundId.First())
+                };
+
+                db.MenResults.Add(newRecord);
+                db.SaveChanges();
+
                 return PartialView("Bandom");
                 //TODO padaryti kad score nunulintu po posto
             }

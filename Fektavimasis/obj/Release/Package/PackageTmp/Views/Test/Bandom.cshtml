@@ -12,8 +12,8 @@
 
 <div id="updateField">
     <h1>@ViewBag.UpdateInfo</h1>
-    
-   
+
+
 
     @using (Ajax.BeginForm("Bandom", "Test", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "updateField" }))
     {
@@ -25,6 +25,9 @@
 
         @*@Html.ListBoxFor(m => m.Result, Model.Result, new { size = 4, @class = "form-control-result1" })*@
         @*@Html.ListBoxFor(m => m.Result, Model.Result, new { size = 4, @class = "form-control-result2" })*@
+
+
+        @Html.Label("Roundas:") @Html.DropDownList("RoundId", ViewBag.RoundId as SelectList, new { @class = "form-control-round" })
         <br />
         <input type="submit" value="Submit" class="btn-success form-control-resultbtn" />
         <br />

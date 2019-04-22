@@ -241,6 +241,7 @@
     <Content Include="Views\WomanResults\Edit.cshtml" />
     <Content Include="Views\WomanResults\Index.cshtml" />
     <Content Include="Views\Ho\EmployeeMaster.cshtml" />
+    <Content Include="Views\MenResults\InsertResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
