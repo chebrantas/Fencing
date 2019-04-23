@@ -159,26 +159,38 @@ namespace Fektavimasis.Controllers
                 ViewBag.RoundId = Round();
 
                 //ViewBag.UpdateInfo = sb.ToString();
-                ViewBag.UpdateInfo = info;
                 //return sb.ToString();
 
                 //Irasoma i DB
                 MenResult newRecord = new MenResult();
-                //nesupranta Parse
-                //var test = db.MenResults.Where(x => x.ParticipantMenId == Int32.Parse(ParticipantsId.First())).Where(y => y.ParticipantCompetingId == Int32.Parse(Participants2Id.First())).First();
-                
-                newRecord = new MenResult
+
+                //nesupranta Parse todel konvertuojame pries uzklausa
+                int ParticipantIdForEF = Int32.Parse(ParticipantsId.First());
+                int ParticipantCompetingIdForEF = Int32.Parse(Participants2Id.First());
+                int RoundIdForEF = Int32.Parse(RoundId.First());
+
+                var MatchupExist = db.MenResults.Where(x => x.ParticipantMenId == ParticipantIdForEF && x.ParticipantCompetingId == ParticipantCompetingIdForEF && x.Round == RoundIdForEF).FirstOrDefault();
+
+                if (MatchupExist == null && (ParticipantIdForEF != ParticipantCompetingIdForEF))
                 {
-                    ParticipantMenId = Int32.Parse(ParticipantsId.First()),
-                    ParticipantCompetingId = Int32.Parse(Participants2Id.First()),
-                    Piercing = Int32.Parse(ScoreId.First()),
-                    Received = Int32.Parse(Score2Id.First()),
-                    Round = Int32.Parse(RoundId.First())
-                };
+                    newRecord = new MenResult
+                    {
+                        ParticipantMenId = Int32.Parse(ParticipantsId.First()),
+                        ParticipantCompetingId = Int32.Parse(Participants2Id.First()),
+                        Piercing = Int32.Parse(ScoreId.First()),
+                        Received = Int32.Parse(Score2Id.First()),
+                        Round = Int32.Parse(RoundId.First())
+                    };
 
-                db.MenResults.Add(newRecord);
-                db.SaveChanges();
+                    db.MenResults.Add(newRecord);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    info = $"Toks įrašas šiame raunde jau egzistuoja";
+                }
 
+                ViewBag.UpdateInfo = info;
                 return PartialView("Bandom");
                 //TODO padaryti kad score nunulintu po posto
             }

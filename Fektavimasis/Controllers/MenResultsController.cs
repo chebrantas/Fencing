@@ -127,24 +127,38 @@ namespace Fektavimasis.Controllers
                 ViewBag.ScoreId = Score();
                 ViewBag.Score2Id = Score();
                 ViewBag.RoundId = Round();
-                ViewBag.UpdateInfo = info;
 
                 //Irasoma i DB
                 MenResult newRecord = new MenResult();
 
-                newRecord = new MenResult
+                //nesupranta Parse todel konvertuojame pries uzklausa
+                int ParticipantIdForEF = Int32.Parse(ParticipantsId.First());
+                int ParticipantCompetingIdForEF = Int32.Parse(Participants2Id.First());
+                int RoundIdForEF = Int32.Parse(RoundId.First());
+
+                var MatchupExist = db.MenResults.Where(x => x.ParticipantMenId == ParticipantIdForEF && x.ParticipantCompetingId == ParticipantCompetingIdForEF && x.Round == RoundIdForEF).FirstOrDefault();
+
+                if (MatchupExist == null && (ParticipantIdForEF != ParticipantCompetingIdForEF))
                 {
-                    ParticipantMenId = Int32.Parse(ParticipantsId.First()),
-                    ParticipantCompetingId = Int32.Parse(Participants2Id.First()),
-                    Piercing = Int32.Parse(ScoreId.First()),
-                    Received = Int32.Parse(Score2Id.First()),
-                    Round = Int32.Parse(RoundId.First())
-                };
+                    newRecord = new MenResult
+                    {
+                        ParticipantMenId = Int32.Parse(ParticipantsId.First()),
+                        ParticipantCompetingId = Int32.Parse(Participants2Id.First()),
+                        Piercing = Int32.Parse(ScoreId.First()),
+                        Received = Int32.Parse(Score2Id.First()),
+                        Round = Int32.Parse(RoundId.First())
+                    };
 
-                db.MenResults.Add(newRecord);
-                db.SaveChanges();
+                    db.MenResults.Add(newRecord);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    info = $"Toks įrašas šiame raunde jau egzistuoja";
+                }
 
-                return PartialView("Bandom");
+                ViewBag.UpdateInfo = info;
+                return PartialView("InsertResult");
                 //TODO padaryti kad score nunulintu po posto
             }
         }
@@ -152,7 +166,7 @@ namespace Fektavimasis.Controllers
         // GET: MenResults
         public ActionResult Index()
         {
-            return View(db.MenResults.ToList());
+            return View(db.MenResults.ToList().OrderBy(x=>x.Round));
         }
 
         // GET: MenResults/Details/5

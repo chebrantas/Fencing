@@ -34,10 +34,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/23/2017 13:15:20</publishTime>
     </File>
     <File Include="bin/Fektavimasis.dll">
-      <publishTime>04/18/2019 17:26:24</publishTime>
+      <publishTime>04/23/2019 09:32:27</publishTime>
     </File>
     <File Include="bin/Fektavimasis.pdb">
-      <publishTime>04/18/2019 17:26:24</publishTime>
+      <publishTime>04/23/2019 09:32:27</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>06/27/2017 12:59:34</publishTime>
@@ -256,13 +256,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/16/2019 10:00:36</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
-      <publishTime>04/16/2019 16:59:32</publishTime>
+      <publishTime>04/23/2019 08:30:00</publishTime>
     </File>
     <File Include="Content/bootstrap.css.map">
       <publishTime>04/16/2019 10:00:36</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css">
-      <publishTime>04/22/2019 22:01:49</publishTime>
+      <publishTime>04/16/2019 10:00:36</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css.map">
       <publishTime>04/16/2019 10:00:36</publishTime>
@@ -360,6 +360,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/MenResults/Index.cshtml">
       <publishTime>04/16/2019 16:19:12</publishTime>
     </File>
+    <File Include="Views/MenResults/InsertResult.cshtml">
+      <publishTime>04/23/2019 08:30:00</publishTime>
+    </File>
     <File Include="Views/ParticipantMen/Create.cshtml">
       <publishTime>04/16/2019 16:16:03</publishTime>
     </File>
@@ -394,10 +397,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/16/2019 10:00:31</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/17/2019 15:56:51</publishTime>
+      <publishTime>04/23/2019 08:30:00</publishTime>
     </File>
     <File Include="Views/Test/Bandom.cshtml">
-      <publishTime>04/17/2019 17:23:23</publishTime>
+      <publishTime>04/23/2019 08:30:00</publishTime>
     </File>
     <File Include="Views/Test/BandomDu.cshtml">
       <publishTime>04/17/2019 15:23:27</publishTime>
@@ -439,7 +442,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/16/2019 10:00:31</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/18/2019 17:26:25</publishTime>
+      <publishTime>04/23/2019 09:32:27</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Insert Result";
+}
+
+@*reikalinga po refresh kad gerai rodytu lenteles*@
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('select').removeAttr('multiple');
+        });
+</script>
+
+<div id="updateField">
+    <h1>@ViewBag.UpdateInfo</h1>
+
+
+
+    @using (Ajax.BeginForm("Bandom", "Test", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "updateField" }))
+    {
+
+        @Html.AntiForgeryToken()
+
+        @Html.ListBox("ScoreId", ViewBag.ScoreId as SelectList, new { size = 4, @class = "form-control-result1" })
+        @Html.ListBox("Score2Id", ViewBag.Score2Id as SelectList, new { size = 4, @class = "form-control-result2" })
+
+        @Html.Label("Roundas:") @Html.DropDownList("RoundId", ViewBag.RoundId as SelectList, new { @class = "form-control-round" })
+        <br />
+        <input type="submit" value="Submit" class="btn-success form-control-resultbtn" />
+        <br />
+        <br />
+        <br />
+        <br />
+        @Html.ListBox("ParticipantsId", ViewBag.ParticipantsId as SelectList, new { size = 40, @class = "form-control" })
+        @Html.ListBox("Participants2Id", ViewBag.Participants2Id as SelectList, new { size = 40, @class = "form-control" })
+
+    }
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-12 text-success">
+            @ViewBag.UpdateInfo
+        </div>
+    </div>
+
+</div>
