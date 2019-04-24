@@ -90,7 +90,7 @@ namespace Fektavimasis.Controllers
                 ViewBag.ScoreId = Score();
                 ViewBag.Score2Id = Score();
                 ViewBag.UpdateInfo = "No Result 1 player are selected";
-                return PartialView("Bandom");
+                return PartialView("InsertResult");
             }
             else if (Score2Id == null)
             {
@@ -99,7 +99,7 @@ namespace Fektavimasis.Controllers
                 ViewBag.ScoreId = Score();
                 ViewBag.Score2Id = Score();
                 ViewBag.UpdateInfo = "No Result 2 player are selected";
-                return PartialView("Bandom");
+                return PartialView("InsertResult");
             }
             else if (ParticipantsId == null)
             {
@@ -108,7 +108,7 @@ namespace Fektavimasis.Controllers
                 ViewBag.ScoreId = Score();
                 ViewBag.Score2Id = Score();
                 ViewBag.UpdateInfo = "No Names for player 1 are selected";
-                return PartialView("Bandom");
+                return PartialView("InsertResult");
             }
             else if (Participants2Id == null)
             {
@@ -117,7 +117,7 @@ namespace Fektavimasis.Controllers
                 ViewBag.ScoreId = Score();
                 ViewBag.Score2Id = Score();
                 ViewBag.UpdateInfo = "No Names for player 2 are selected";
-                return PartialView("Bandom");
+                return PartialView("InsertResult");
             }
             else
             {
@@ -130,6 +130,7 @@ namespace Fektavimasis.Controllers
 
                 //Irasoma i DB
                 MenResult newRecord = new MenResult();
+                MenResult newRecordOposite = new MenResult();
 
                 //nesupranta Parse todel konvertuojame pries uzklausa
                 int ParticipantIdForEF = Int32.Parse(ParticipantsId.First());
@@ -150,6 +151,19 @@ namespace Fektavimasis.Controllers
                     };
 
                     db.MenResults.Add(newRecord);
+                    db.SaveChanges();
+
+                    //iraso priesinga yrasa kad nereiktu papildomai is kitos puses ivedineti
+                    newRecordOposite = new MenResult
+                    {
+                        ParticipantMenId = Int32.Parse(Participants2Id.First()),
+                        ParticipantCompetingId = Int32.Parse(ParticipantsId.First()),
+                        Piercing = Int32.Parse(Score2Id.First()),
+                        Received = Int32.Parse(ScoreId.First()),
+                        Round = Int32.Parse(RoundId.First())
+                    };
+
+                    db.MenResults.Add(newRecordOposite);
                     db.SaveChanges();
                 }
                 else
