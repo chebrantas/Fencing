@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Fektavimasis.Models.MenResult>
+﻿@model IEnumerable<Fektavimasis.Models.ParticipantMen>
 
 @{
     ViewBag.Title = "Index";
@@ -12,44 +12,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ParticipantMenId)
+            @Html.DisplayNameFor(model => model.NameSurname)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ParticipantCompetingId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Piercing)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Received)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Round)
-        </th>
+        
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ParticipantMenId)
+            @Html.DisplayFor(modelItem => item.NameSurname)
         </td>
+       
         <td>
-            @Html.DisplayFor(modelItem => item.ParticipantCompetingId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Piercing)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Received)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Round)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MenResultId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MenResultId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MenResultId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ParticipantMenId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ParticipantMenId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ParticipantMenId })
         </td>
     </tr>
 }

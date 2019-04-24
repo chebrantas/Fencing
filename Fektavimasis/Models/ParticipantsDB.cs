@@ -15,6 +15,7 @@ namespace Fektavimasis.Models
         }
 
         public DbSet<ParticipantMen> ParticipantMens { get; set; }
+        public DbSet<ParticipantSecondMen> ParticipantSecondMens { get; set; }
         public DbSet<ParticipantWoman> ParticipantWomen { get; set; }
         public DbSet<MenResult> MenResults { get; set; }
         public DbSet<WomanResult> WomenResults { get; set; }

@@ -166,12 +166,30 @@ namespace Fektavimasis.Controllers
         // GET: MenResults
         public ActionResult Index()
         {
-            return View(db.MenResults.ToList().OrderBy(x=>x.Round));
+            //return View(db.MenResults.ToList().OrderBy(x=>x.Round));
+
+            //var test = (from p in db.ParticipantMens
+            //            join m in db.MenResults on p.ParticipantMenId equals m.ParticipantMenId
+            //            where p.ParticipantMenId == 1
+            //            select new ParticipantListWithInfoViewModel() { ParticipantMenId = p.ParticipantMenId, NameSurname = p.NameSurname, Wins = 1, Piercing = m.Piercing, Received = m.Received }).ToList();
+
+
+
+
+            return View(db.ParticipantMens.ToList().OrderBy(x=>x.ParticipantMenId));
         }
 
         // GET: MenResults/Details/5
         public ActionResult Details(int? id)
         {
+
+            //var test = (from m in db.MenResults
+            //            join p in db.ParticipantMens on m.ParticipantMenId equals p.ParticipantMenId
+            //            join pp in db.ParticipantSecondMens on m.ParticipantCompetingId equals pp.ParticipantSecondMenId
+            //            select new ParticipantsInfoViewModel() { ParticipantMenId = p.ParticipantMenId, FirstParticipantNameSurname = p.NameSurname, SecondParticipantNameSurname = pp.NameSurname, Piercing = m.Piercing, Received = m.Received, Round = m.Round }).ToList();
+
+            //return View(test);
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

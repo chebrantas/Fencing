@@ -166,9 +166,12 @@
     </Compile>
     <Compile Include="Models\EmpModel.cs" />
     <Compile Include="Models\MenResult.cs" />
+    <Compile Include="Models\ParticipantSecondMen.cs" />
     <Compile Include="Models\ParticipantsDB.cs" />
     <Compile Include="Models\ParticipantMen.cs" />
     <Compile Include="Models\ParticipantWoman.cs" />
+    <Compile Include="Models\ViewModel\ParticipantListWithInfoViewModel.cs" />
+    <Compile Include="Models\ViewModel\ParticipantsInfoViewModel.cs" />
     <Compile Include="Models\ViewModel\ParticipantsViewModel.cs" />
     <Compile Include="Models\WomanResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -216,20 +219,19 @@
     <Content Include="Views\Test\Delete.cshtml" />
     <Content Include="Views\Test\Details.cshtml" />
     <Content Include="Views\Test\Edit.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\Index2.cshtml" />
     <Content Include="Views\Test\Bandom.cshtml" />
     <Content Include="Views\Test\BandomDu.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ParticipantMen\Create.cshtml" />
     <Content Include="Views\ParticipantMen\Delete.cshtml" />
-    <Content Include="Views\ParticipantMen\Details.cshtml" />
     <Content Include="Views\ParticipantMen\Edit.cshtml" />
     <Content Include="Views\ParticipantMen\Index.cshtml" />
     <Content Include="Views\MenResults\Create.cshtml" />
     <Content Include="Views\MenResults\Delete.cshtml" />
     <Content Include="Views\MenResults\Details.cshtml" />
     <Content Include="Views\MenResults\Edit.cshtml" />
-    <Content Include="Views\MenResults\Index.cshtml" />
+    <Content Include="Views\MenResults\Index2.cshtml" />
     <Content Include="Views\ParticipantWomen\Create.cshtml" />
     <Content Include="Views\ParticipantWomen\Delete.cshtml" />
     <Content Include="Views\ParticipantWomen\Details.cshtml" />
@@ -242,6 +244,9 @@
     <Content Include="Views\WomanResults\Index.cshtml" />
     <Content Include="Views\Ho\EmployeeMaster.cshtml" />
     <Content Include="Views\MenResults\InsertResult.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\MenResults\Index.cshtml" />
+    <Content Include="Views\ParticipantMen\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

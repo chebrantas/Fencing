@@ -9,5 +9,7 @@ namespace Fektavimasis.Models
     {
         public virtual int ParticipantWomanId { get; set; }
         public virtual string NameSurname { get; set; }
+        public virtual string ServiceUnit { get; set; }
+
     }
 }

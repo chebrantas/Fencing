@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Fektavimasis.Models;
+using Fektavimasis.Models.ViewModel;
 
 namespace Fektavimasis.Controllers
 {
@@ -23,6 +24,7 @@ namespace Fektavimasis.Controllers
         // GET: ParticipantMen/Details/5
         public ActionResult Details(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -32,7 +34,14 @@ namespace Fektavimasis.Controllers
             {
                 return HttpNotFound();
             }
-            return View(participantMen);
+
+            var query = (from m in db.MenResults
+                         join p in db.ParticipantMens on m.ParticipantMenId equals p.ParticipantMenId
+                         join pp in db.ParticipantSecondMens on m.ParticipantCompetingId equals pp.ParticipantSecondMenId
+                         where p.ParticipantMenId == id
+                         select new ParticipantsInfoViewModel() { FirstParticipantNameSurname = p.NameSurname, SecondParticipantNameSurname = pp.NameSurname, Piercing = m.Piercing, Received = m.Received, Round = m.Round }).ToList();
+
+            return View(query);
         }
 
         // GET: ParticipantMen/Create
@@ -52,7 +61,18 @@ namespace Fektavimasis.Controllers
             {
                 db.ParticipantMens.Add(participantMen);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                //i antra db raso
+                ParticipantSecondMen newObj = new ParticipantSecondMen()
+                {
+                    NameSurname = participantMen.NameSurname,
+                    ParticipantSecondMenId = participantMen.ParticipantMenId,
+                    ServiceUnit = participantMen.ServiceUnit
+                };
+
+                db.ParticipantSecondMens.Add(newObj);
+                db.SaveChanges();
+                return RedirectToAction("Create");
             }
 
             return View(participantMen);
@@ -97,6 +117,7 @@ namespace Fektavimasis.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ParticipantMen participantMen = db.ParticipantMens.Find(id);
+
             if (participantMen == null)
             {
                 return HttpNotFound();
@@ -111,6 +132,10 @@ namespace Fektavimasis.Controllers
         {
             ParticipantMen participantMen = db.ParticipantMens.Find(id);
             db.ParticipantMens.Remove(participantMen);
+            db.SaveChanges();
+
+            ParticipantSecondMen participant2Men = db.ParticipantSecondMens.Find(id);
+            db.ParticipantSecondMens.Remove(participant2Men);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

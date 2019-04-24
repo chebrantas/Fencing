@@ -86,7 +86,16 @@ namespace Fektavimasis.Controllers
         // GET: Test
         public ActionResult Index()
         {
-            return View(db.ParticipantMens.ToList());
+
+            var test = (from m in db.MenResults
+                       join p in db.ParticipantMens on m.ParticipantMenId equals p.ParticipantMenId
+                       join pp in db.ParticipantSecondMens on m.ParticipantCompetingId equals pp.ParticipantSecondMenId
+                       select new ParticipantsInfoViewModel() { FirstParticipantNameSurname = p.NameSurname, SecondParticipantNameSurname = pp.NameSurname, Piercing = m.Piercing, Received = m.Received, Round = m.Round }).ToList();
+
+
+
+            //return View(db.ParticipantMens.ToList());
+            return View(test);
         }
 
         public ActionResult Bandom()

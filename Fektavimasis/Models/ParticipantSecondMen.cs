@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Fektavimasis.Models
 {
-    public class ParticipantMen
+    public class ParticipantSecondMen
     {
-        public virtual int ParticipantMenId { get; set; }
+        public virtual int ParticipantSecondMenId { get; set; }
         public virtual string NameSurname { get; set; }
         public virtual string ServiceUnit { get; set; }
 
