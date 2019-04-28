@@ -20,5 +20,10 @@ namespace Fektavimasis.Models
         public DbSet<MenResult> MenResults { get; set; }
         public DbSet<WomanResult> WomenResults { get; set; }
 
+
+        public DbSet<Dalyviai> Dalyviai { get; set; }
+        public DbSet<Matchup> Matchups { get; set; }
+        public DbSet<MatchupEntries> MatchupEntries { get; set; }
+
     }
 }

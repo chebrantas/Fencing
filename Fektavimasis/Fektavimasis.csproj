@@ -159,12 +159,16 @@
     <Compile Include="Controllers\MenResultsController.cs" />
     <Compile Include="Controllers\ParticipantMenController.cs" />
     <Compile Include="Controllers\ParticipantWomenController.cs" />
+    <Compile Include="Controllers\TestasNaujasController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\WomanResultsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Dalyviai.cs" />
     <Compile Include="Models\EmpModel.cs" />
+    <Compile Include="Models\Matchup.cs" />
+    <Compile Include="Models\MatchupEntries.cs" />
     <Compile Include="Models\MenResult.cs" />
     <Compile Include="Models\ParticipantSecondMen.cs" />
     <Compile Include="Models\ParticipantsDB.cs" />
@@ -173,6 +177,7 @@
     <Compile Include="Models\ViewModel\ParticipantListWithInfoViewModel.cs" />
     <Compile Include="Models\ViewModel\ParticipantsInfoViewModel.cs" />
     <Compile Include="Models\ViewModel\ParticipantsViewModel.cs" />
+    <Compile Include="Models\ViewModel\TestasVM.cs" />
     <Compile Include="Models\WomanResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -247,6 +252,7 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\MenResults\Index.cshtml" />
     <Content Include="Views\ParticipantMen\Details.cshtml" />
+    <Content Include="Views\TestasNaujas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
