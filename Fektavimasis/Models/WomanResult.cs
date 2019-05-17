@@ -9,9 +9,9 @@ namespace Fektavimasis.Models
     {
         public virtual int WomanResultId { get; set; }
         public virtual int ParticipantWomanId { get; set; }
-        public virtual int ParticipantCompetingId { get; set; }
         public virtual int Piercing { get; set; }
         public virtual int Received { get; set; }
+        public virtual int ParticipantCompetingId { get; set; }
         public virtual int Round { get; set; }
     }
 }

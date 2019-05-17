@@ -18,6 +18,10 @@ namespace Fektavimasis.Controllers
         // GET: ParticipantMen
         public ActionResult Index()
         {
+            //var query = (from r in db.MenResults into rr select NameSurname from db.ParticipantMens where ParticipantMenId = r.ParticipantMenId as 'Home', Piercing, Received,
+            //(select NameSurname from db.ParticipantMens where ParticipantMenId = r.ParticipantCompetingId) as 'Away')
+                         
+
             return View(db.ParticipantMens.ToList());
         }
 
