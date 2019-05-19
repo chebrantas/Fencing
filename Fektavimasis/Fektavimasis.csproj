@@ -174,6 +174,8 @@
     <Compile Include="Models\ParticipantsDB.cs" />
     <Compile Include="Models\ParticipantMen.cs" />
     <Compile Include="Models\ParticipantWoman.cs" />
+    <Compile Include="Models\ViewModel\EditMatchupViewModel.cs" />
+    <Compile Include="Models\ViewModel\FinalAllParticipantsInfoVM.cs" />
     <Compile Include="Models\ViewModel\FullInfoViewModel.cs" />
     <Compile Include="Models\ViewModel\ParticipantListWithInfoViewModel.cs" />
     <Compile Include="Models\ViewModel\ParticipantsInfoViewModel.cs" />
@@ -223,7 +225,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Test\Create.cshtml" />
     <Content Include="Views\Test\Delete.cshtml" />
-    <Content Include="Views\Test\Details.cshtml" />
     <Content Include="Views\Test\Edit.cshtml" />
     <Content Include="Views\Test\Index2.cshtml" />
     <Content Include="Views\Test\Bandom.cshtml" />
@@ -250,10 +251,15 @@
     <Content Include="Views\WomanResults\Index.cshtml" />
     <Content Include="Views\Ho\EmployeeMaster.cshtml" />
     <Content Include="Views\MenResults\InsertResult.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\Index3.cshtml" />
     <Content Include="Views\MenResults\Index.cshtml" />
     <Content Include="Views\ParticipantMen\Details.cshtml" />
     <Content Include="Views\TestasNaujas\Index.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\Details.cshtml" />
+    <Content Include="Views\Test\EditMatchup.cshtml" />
+    <Content Include="Views\Test\DeleteMatchup1.cshtml" />
+    <Content Include="Views\Test\DeleteMatchup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

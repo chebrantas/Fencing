@@ -1,28 +1,27 @@
 ﻿@model IEnumerable<Fektavimasis.Models.ViewModel.ParticipantsInfoViewModel>
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Index";
 }
 
-<h2>Details</h2>
+<h2>Index</h2>
 
-
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MenResultsId)
+            @Html.DisplayNameFor(model => model.FirstParticipantNameSurname)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstParticipantNameSurname)
+            @Html.DisplayNameFor(model => model.SecondParticipantNameSurname)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Piercing)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Received)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecondParticipantNameSurname)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Round)
@@ -33,10 +32,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.MenResultsId)
+            @Html.DisplayFor(modelItem => item.FirstParticipantNameSurname)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstParticipantNameSurname)
+            @Html.DisplayFor(modelItem => item.SecondParticipantNameSurname)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Piercing)
@@ -45,19 +44,14 @@
             @Html.DisplayFor(modelItem => item.Received)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SecondParticipantNameSurname)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Round)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditMatchup", new {id=item.MenResultsId }) |
-            @Html.ActionLink("Delete", "DeleteMatchup", new { id = item.MenResultsId })
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
 }
 
 </table>
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

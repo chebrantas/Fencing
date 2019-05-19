@@ -87,15 +87,48 @@ namespace Fektavimasis.Controllers
         public ActionResult Index()
         {
 
-            var test = (from m in db.MenResults
-                       join p in db.ParticipantMens on m.ParticipantMenId equals p.ParticipantMenId
-                       join pp in db.ParticipantSecondMens on m.ParticipantCompetingId equals pp.ParticipantSecondMenId
-                       select new ParticipantsInfoViewModel() { FirstParticipantNameSurname = p.NameSurname, SecondParticipantNameSurname = pp.NameSurname, Piercing = m.Piercing, Received = m.Received, Round = m.Round }).ToList();
+            //var test = (from m in db.MenResults
+            //            join p in db.ParticipantMens on m.ParticipantMenId equals p.ParticipantMenId
+            //            join pp in db.ParticipantSecondMens on m.ParticipantCompetingId equals pp.ParticipantSecondMenId
+            //            select new ParticipantsInfoViewModel() { FirstParticipantNameSurname = p.NameSurname, SecondParticipantNameSurname = pp.NameSurname, Piercing = m.Piercing, Received = m.Received, Round = m.Round }).ToList();
 
+            //var first_query = from p in db.ParticipantMens
+            //                  from m in db.MenResults
+            //                  where p.ParticipantMenId == m.ParticipantMenId
+            //                  select new { Name = p.NameSurname, m.Piercing, m.Received, m.ParticipantCompetingId, m.Round };
 
+            ////gerai gaunasi, jei paduodame pries tai uzklausa suformuota i ToList nebveikia nes nepriima objektu
+            //var query = (from p in db.ParticipantMens
+            //             from q in first_query
+            //             where p.ParticipantMenId == q.ParticipantCompetingId
+            //             select new ParticipantsInfoViewModel
+            //             {
+            //                 FirstParticipantNameSurname = q.Name,
+            //                 Piercing = q.Piercing,
+            //                 Received = q.Received,
+            //                 SecondParticipantNameSurname = p.NameSurname,
+            //                 Round = q.Round
+            //             })
+            //             .ToList().OrderBy(o => o.FirstParticipantNameSurname);
+
+            //var test2=from m in db.MenResults where m.Piercing==3 && m.ParticipantMenId==1
+            //          select new { cc=m }
+
+            //var test3 = (from m in db.MenResults where m.Piercing == 3 && m.ParticipantMenId == 1 select new { }).ToList().Count();
+            //var test4 = db.MenResults.GroupBy(g => 1).Select(g => new { Win = g.Count(i => i.Piercing == 3), PiersingTotal = g.Sum(i => i.Piercing), ReceivedTotal = g.Sum(i => i.Received) }).ToList();
+
+            var query_all = db.MenResults.GroupBy(g => g.ParticipantMenId).Select(g => new FinalAllParticipantsInfoVM
+            {
+                ID = g.Key,//irasomas Dalyvio ID
+                NameSurname = db.ParticipantMens.Where(p => p.ParticipantMenId == g.Key).FirstOrDefault().NameSurname, //irasomas dalyvio VArdasPavarde
+                Win = g.Count(i => i.Piercing == 3),
+                PiercingTotal = g.Sum(s => s.Piercing),
+                ReceivedTotal = g.Sum(s => s.Received)
+            })
+                .OrderByDescending(o => o.Win).ThenByDescending(o => o.PiercingTotal - o.ReceivedTotal).ToList();//surikiuoja pagal pergales, o tada pagal idurtu praleistu santyki
 
             //return View(db.ParticipantMens.ToList());
-            return View(test);
+            return View(query_all);
         }
 
         public ActionResult Bandom()
@@ -335,12 +368,28 @@ namespace Fektavimasis.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ParticipantMen participantMen = db.ParticipantMens.Find(id);
-            if (participantMen == null)
-            {
-                return HttpNotFound();
-            }
-            return View(participantMen);
+
+            var first_query = from p in db.ParticipantMens
+                              from m in db.MenResults
+                              where p.ParticipantMenId == m.ParticipantMenId && p.ParticipantMenId == id
+                              select new { MatchupId = m.MenResultId, Name = p.NameSurname, m.Piercing, m.Received, m.ParticipantCompetingId, m.Round };
+
+            //gerai gaunasi, jei paduodame pries tai uzklausa suformuota i ToList neveikia nes nepriima objektu
+            var query = (from p in db.ParticipantMens
+                         from q in first_query
+                         where p.ParticipantMenId == q.ParticipantCompetingId
+                         select new ParticipantsInfoViewModel
+                         {
+                             MenResultsId = q.MatchupId,//cia reikia kovos id kad galetum editint jei klaida butu
+                             FirstParticipantNameSurname = q.Name,
+                             Piercing = q.Piercing,
+                             Received = q.Received,
+                             SecondParticipantNameSurname = p.NameSurname,
+                             Round = q.Round
+                         })
+                         .ToList().OrderBy(o => o.FirstParticipantNameSurname);
+
+            return View(query);
         }
 
         // GET: Test/Create
@@ -395,6 +444,92 @@ namespace Fektavimasis.Controllers
                 return RedirectToAction("Index");
             }
             return View(participantMen);
+        }
+
+        // GET: Test/EditMatchup/5
+        public ActionResult EditMatchup(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            MenResult results = db.MenResults.Find(id);
+            if (results == null)
+            {
+                return HttpNotFound();
+            }
+            EditMatchupViewModel matchupEdit = new EditMatchupViewModel()
+            {
+                ID=results.MenResultId,
+                FirstParticipantNameSurname = db.ParticipantMens.Where(x=>x.ParticipantMenId==results.ParticipantMenId).First().NameSurname,
+                Piercing=results.Piercing,
+                Received=results.Received,
+                SecondParticipantNameSurname = db.ParticipantMens.Where(x => x.ParticipantMenId == results.ParticipantCompetingId).First().NameSurname,
+                Round=results.Round
+            };
+
+            return View(matchupEdit);
+        }
+
+        // POST: Test/EditMatchup/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditMatchup([Bind(Include = "ID,Piercing,Received")] EditMatchupViewModel Matchup)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Matchup.ID == 0) 
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                MenResult results = db.MenResults.Find(Matchup.ID);
+                db.Entry(results).State = EntityState.Modified;
+                results.Piercing = Matchup.Piercing;
+                results.Received = Matchup.Received;
+                db.SaveChanges();
+
+                return RedirectToAction("Details", new { id =results.ParticipantMenId });
+            }
+            return View(Matchup);
+        }
+
+        // GET: Test/Delete/5
+        public ActionResult DeleteMatchup(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            MenResult matchup = db.MenResults.Find(id);
+            if (matchup == null)
+            {
+                return HttpNotFound();
+            }
+            EditMatchupViewModel matchupDelete = new EditMatchupViewModel()
+            {
+                ID = matchup.MenResultId,
+                FirstParticipantNameSurname = db.ParticipantMens.Where(x => x.ParticipantMenId == matchup.ParticipantMenId).First().NameSurname,
+                Piercing = matchup.Piercing,
+                Received = matchup.Received,
+                SecondParticipantNameSurname = db.ParticipantMens.Where(x => x.ParticipantMenId == matchup.ParticipantCompetingId).First().NameSurname,
+                Round = matchup.Round
+            };
+
+
+            return View(matchupDelete);
+        }
+
+        // POST: Test/Delete/5
+        [HttpPost, ActionName("DeleteMatchup")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmedMatchup(int id)
+        {
+            MenResult matchup = db.MenResults.Find(id);
+            db.MenResults.Remove(matchup);
+            db.SaveChanges();
+            return RedirectToAction("Details", new { id = matchup.ParticipantMenId });
         }
 
         // GET: Test/Delete/5

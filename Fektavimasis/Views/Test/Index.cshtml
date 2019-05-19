@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Fektavimasis.Models.ViewModel.ParticipantsInfoViewModel>
+﻿@model IEnumerable<Fektavimasis.Models.ViewModel.FinalAllParticipantsInfoVM>
 
 @{
     ViewBag.Title = "Index";
@@ -6,25 +6,20 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstParticipantNameSurname)
+            @Html.DisplayNameFor(model => model.NameSurname)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SecondParticipantNameSurname)
+            @Html.DisplayNameFor(model => model.Win)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Piercing)
+            @Html.DisplayNameFor(model => model.PiercingTotal)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Received)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Round)
+            @Html.DisplayNameFor(model => model.ReceivedTotal)
         </th>
         <th></th>
     </tr>
@@ -32,24 +27,20 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstParticipantNameSurname)
+            @Html.DisplayFor(modelItem => item.NameSurname)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SecondParticipantNameSurname)
+            @Html.DisplayFor(modelItem => item.Win)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Piercing)
+            @Html.DisplayFor(modelItem => item.PiercingTotal)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Received)
+            @Html.DisplayFor(modelItem => item.ReceivedTotal)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Round)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) 
         </td>
     </tr>
 }
