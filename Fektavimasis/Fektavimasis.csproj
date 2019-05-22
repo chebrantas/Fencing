@@ -260,6 +260,7 @@
     <Content Include="Views\Test\EditMatchup.cshtml" />
     <Content Include="Views\Test\DeleteMatchup1.cshtml" />
     <Content Include="Views\Test\DeleteMatchup.cshtml" />
+    <Content Include="Views\Test\DeleteAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

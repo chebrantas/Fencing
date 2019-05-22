@@ -39,8 +39,11 @@
             @Html.DisplayFor(modelItem => item.ReceivedTotal)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) 
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID })|
+            @Html.ActionLink("Delete Vyrai", "DeleteAll", new { id = 1 })|
+            @Html.ActionLink("Delete Moterys", "DeleteAll", new { id = 2 })
+
         </td>
     </tr>
 }

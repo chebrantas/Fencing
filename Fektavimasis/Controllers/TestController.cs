@@ -460,12 +460,12 @@ namespace Fektavimasis.Controllers
             }
             EditMatchupViewModel matchupEdit = new EditMatchupViewModel()
             {
-                ID=results.MenResultId,
-                FirstParticipantNameSurname = db.ParticipantMens.Where(x=>x.ParticipantMenId==results.ParticipantMenId).First().NameSurname,
-                Piercing=results.Piercing,
-                Received=results.Received,
+                ID = results.MenResultId,
+                FirstParticipantNameSurname = db.ParticipantMens.Where(x => x.ParticipantMenId == results.ParticipantMenId).First().NameSurname,
+                Piercing = results.Piercing,
+                Received = results.Received,
                 SecondParticipantNameSurname = db.ParticipantMens.Where(x => x.ParticipantMenId == results.ParticipantCompetingId).First().NameSurname,
-                Round=results.Round
+                Round = results.Round
             };
 
             return View(matchupEdit);
@@ -480,7 +480,7 @@ namespace Fektavimasis.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Matchup.ID == 0) 
+                if (Matchup.ID == 0)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
@@ -490,12 +490,12 @@ namespace Fektavimasis.Controllers
                 results.Received = Matchup.Received;
                 db.SaveChanges();
 
-                return RedirectToAction("Details", new { id =results.ParticipantMenId });
+                return RedirectToAction("Details", new { id = results.ParticipantMenId });
             }
             return View(Matchup);
         }
 
-        // GET: Test/Delete/5
+        // GET: Test/DeleteMatchup/5
         public ActionResult DeleteMatchup(int? id)
         {
             if (id == null)
@@ -521,7 +521,7 @@ namespace Fektavimasis.Controllers
             return View(matchupDelete);
         }
 
-        // POST: Test/Delete/5
+        // POST: Test/DeleteMatchup/5
         [HttpPost, ActionName("DeleteMatchup")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmedMatchup(int id)
@@ -530,6 +530,67 @@ namespace Fektavimasis.Controllers
             db.MenResults.Remove(matchup);
             db.SaveChanges();
             return RedirectToAction("Details", new { id = matchup.ParticipantMenId });
+        }
+
+        // GET: Test/DeleteAll
+        public ActionResult DeleteAll(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+           
+            return View();
+        }
+
+        // POST: Test/DeleteAll
+        [HttpPost, ActionName("DeleteAll")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmedAll(int ID)
+        {
+            if (ID == 1)
+            {
+                //delete all results
+                List<MenResult> deleteQueryResult = db.MenResults.Where(x => x.MenResultId != 0).ToList();
+
+                foreach (MenResult r in deleteQueryResult)
+                {
+                    db.MenResults.Remove(r);
+                }
+                db.SaveChanges();
+
+                //delete all participants
+                List<ParticipantMen> deleteQueryParticipants = db.ParticipantMens.Where(x => x.ParticipantMenId != 0).ToList();
+
+                foreach (ParticipantMen p in deleteQueryParticipants)
+                {
+                    db.ParticipantMens.Remove(p);
+                }
+                db.SaveChanges();
+            }
+            else if (ID == 2)
+            {
+                //delete all results
+                List<WomanResult> deleteQueryResult = db.WomenResults.Where(x => x.WomanResultId != 0).ToList();
+
+                foreach (WomanResult r in deleteQueryResult)
+                {
+                    db.WomenResults.Remove(r);
+                }
+                db.SaveChanges();
+
+                //delete all participants
+                List<ParticipantWoman> deleteQueryParticipants = db.ParticipantWomen.Where(x => x.ParticipantWomanId != 0).ToList();
+
+                foreach (ParticipantWoman p in deleteQueryParticipants)
+                {
+                    db.ParticipantWomen.Remove(p);
+                }
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
         }
 
         // GET: Test/Delete/5
