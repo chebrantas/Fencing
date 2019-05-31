@@ -540,7 +540,14 @@ namespace Fektavimasis.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           
+            else if (id==1)
+            {
+                ViewBag.Lytis = "Men";
+            }
+            else if (id==2)
+            {
+                ViewBag.Lytis = "Women";
+            }
             return View();
         }
 
