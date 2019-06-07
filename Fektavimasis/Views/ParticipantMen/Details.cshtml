@@ -6,17 +6,14 @@
 
 <h2>Details</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
-        
         <th>
-            @Html.DisplayNameFor(model => model.FirstParticipantNameSurname)
+            @Html.DisplayNameFor(model => model.MenResultsId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SecondParticipantNameSurname)
+            @Html.DisplayNameFor(model => model.FirstParticipantNameSurname)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Piercing)
@@ -25,19 +22,21 @@
             @Html.DisplayNameFor(model => model.Received)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.SecondParticipantNameSurname)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Round)
         </th>
-        
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        
         <td>
-            @Html.DisplayFor(modelItem => item.FirstParticipantNameSurname)
+            @Html.DisplayFor(modelItem => item.MenResultsId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SecondParticipantNameSurname)
+            @Html.DisplayFor(modelItem => item.FirstParticipantNameSurname)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Piercing)
@@ -46,10 +45,19 @@
             @Html.DisplayFor(modelItem => item.Received)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.SecondParticipantNameSurname)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Round)
         </td>
-       
+        <td>
+            @Html.ActionLink("Edit", "EditMatchup", new {id=item.MenResultsId }) |
+            @Html.ActionLink("Delete", "DeleteMatchup", new { id = item.MenResultsId })
+        </td>
     </tr>
 }
 
 </table>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

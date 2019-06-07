@@ -380,7 +380,7 @@ namespace Fektavimasis.Controllers
                          where p.ParticipantMenId == q.ParticipantCompetingId
                          select new ParticipantsInfoViewModel
                          {
-                             MenResultsId = q.MatchupId,//cia reikia kovos id kad galetum editint jei klaida butu
+                             ResultsId = q.MatchupId,//cia reikia kovos id kad galetum editint jei klaida butu
                              FirstParticipantNameSurname = q.Name,
                              Piercing = q.Piercing,
                              Received = q.Received,

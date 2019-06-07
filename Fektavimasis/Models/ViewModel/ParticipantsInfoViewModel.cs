@@ -9,7 +9,7 @@ namespace Fektavimasis.Models.ViewModel
     public class ParticipantsInfoViewModel
     {
         [DisplayName("ID")]
-        public virtual int MenResultsId { get; set; }
+        public virtual int ResultsId { get; set; }
         [DisplayName("First Participant")]
         public virtual string FirstParticipantNameSurname { get; set; }
         public virtual int Piercing { get; set; }

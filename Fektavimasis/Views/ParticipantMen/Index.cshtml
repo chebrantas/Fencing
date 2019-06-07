@@ -1,18 +1,27 @@
-﻿@model IEnumerable<Fektavimasis.Models.ParticipantMen>
+﻿@model IEnumerable<Fektavimasis.Models.ViewModel.FinalAllParticipantsInfoVM>
 
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.NameSurname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Win)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PiercingTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceivedTotal)
         </th>
         <th></th>
     </tr>
@@ -23,9 +32,17 @@
             @Html.DisplayFor(modelItem => item.NameSurname)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ParticipantMenId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ParticipantMenId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ParticipantMenId })
+            @Html.DisplayFor(modelItem => item.Win)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PiercingTotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceivedTotal)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID })
         </td>
     </tr>
 }
