@@ -154,24 +154,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenResultsController.cs" />
     <Compile Include="Controllers\ParticipantMenController - Copy.cs" />
     <Compile Include="Controllers\ParticipantMenController.cs" />
     <Compile Include="Controllers\ParticipantWomenController.cs" />
-    <Compile Include="Controllers\TestasNaujasController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\WomanResultsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Dalyviai.cs" />
-    <Compile Include="Models\EmpModel.cs" />
-    <Compile Include="Models\Matchup.cs" />
-    <Compile Include="Models\MatchupEntries.cs" />
     <Compile Include="Models\MenResult.cs" />
-    <Compile Include="Models\ParticipantSecondMen.cs" />
     <Compile Include="Models\ParticipantsDB.cs" />
     <Compile Include="Models\ParticipantMen.cs" />
     <Compile Include="Models\ParticipantWoman.cs" />
@@ -224,13 +216,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Test\Create.cshtml" />
-    <Content Include="Views\Test\Delete.cshtml" />
-    <Content Include="Views\Test\Edit.cshtml" />
-    <Content Include="Views\Test\Index2.cshtml" />
-    <Content Include="Views\Test\Bandom.cshtml" />
-    <Content Include="Views\Test\BandomDu.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ParticipantMen\Create.cshtml" />
     <Content Include="Views\ParticipantMen\Edit.cshtml" />
     <Content Include="Views\MenResults\Create.cshtml" />
@@ -238,17 +223,8 @@
     <Content Include="Views\MenResults\Details.cshtml" />
     <Content Include="Views\MenResults\Edit.cshtml" />
     <Content Include="Views\MenResults\Index2.cshtml" />
-    <Content Include="Views\Ho\EmployeeMaster.cshtml" />
     <Content Include="Views\MenResults\InsertResult.cshtml" />
-    <Content Include="Views\Test\Index3.cshtml" />
     <Content Include="Views\MenResults\Index.cshtml" />
-    <Content Include="Views\TestasNaujas\Index.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
-    <Content Include="Views\Test\Details.cshtml" />
-    <Content Include="Views\Test\EditMatchup.cshtml" />
-    <Content Include="Views\Test\DeleteMatchup1.cshtml" />
-    <Content Include="Views\Test\DeleteMatchup.cshtml" />
-    <Content Include="Views\Test\DeleteAll.cshtml" />
     <Content Include="Views\ParticipantMenOrg\Create.cshtml" />
     <Content Include="Views\ParticipantMenOrg\Delete.cshtml" />
     <Content Include="Views\ParticipantMenOrg\Details.cshtml" />
@@ -267,6 +243,7 @@
     <Content Include="Views\ParticipantWomen\EditMatchup.cshtml" />
     <Content Include="Views\ParticipantWomen\Index.cshtml" />
     <Content Include="Views\WomanResults\InsertResult.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

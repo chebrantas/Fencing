@@ -112,7 +112,7 @@ namespace Fektavimasis.Controllers
                              SecondParticipantNameSurname = p.NameSurname,
                              Round = q.Round
                          })
-                         .ToList().OrderBy(o => o.FirstParticipantNameSurname);
+                         .ToList().OrderBy(o => o.Round);
 
             return View(query);
         }

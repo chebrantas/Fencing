@@ -94,7 +94,6 @@ C:\Users\LKM\Documents\Visual Studio 2017\Project\Fektavimasis\Fektavimasis\obj\
 C:\Users\LKM\Documents\Visual Studio 2017\Project\Fektavimasis\Fektavimasis\obj\Release\Fektavimasis.csproj.CopyComplete
 C:\Users\LKM\Documents\Visual Studio 2017\Project\Fektavimasis\Fektavimasis\obj\Release\Fektavimasis.dll
 C:\Users\LKM\Documents\Visual Studio 2017\Project\Fektavimasis\Fektavimasis\obj\Release\Fektavimasis.pdb
-C:\Users\LKM\Documents\Visual Studio 2017\Project\Fektavimasis\Fektavimasis\obj\Release\Fektavimasis.csprojAssemblyReference.cache
 C:\Users\Monstras\Documents\Visual Studio 2017\Projects\Fencing\Fektavimasis\bin\ApplicationInsights.config
 C:\Users\Monstras\Documents\Visual Studio 2017\Projects\Fencing\Fektavimasis\bin\Fektavimasis.dll.config
 C:\Users\Monstras\Documents\Visual Studio 2017\Projects\Fencing\Fektavimasis\bin\Fektavimasis.dll

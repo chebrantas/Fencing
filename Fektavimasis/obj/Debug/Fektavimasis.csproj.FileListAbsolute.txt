@@ -90,7 +90,6 @@ C:\Users\LKM\Documents\Visual Studio 2017\Project\Fektavimasis\Fektavimasis\bin\
 C:\Users\LKM\Documents\Visual Studio 2017\Project\Fektavimasis\Fektavimasis\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\LKM\Documents\Visual Studio 2017\Project\Fektavimasis\Fektavimasis\bin\Microsoft.AI.Web.xml
 C:\Users\LKM\Documents\Visual Studio 2017\Project\Fektavimasis\Fektavimasis\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\LKM\Documents\Visual Studio 2017\Project\Fektavimasis\Fektavimasis\obj\Debug\Fektavimasis.csprojAssemblyReference.cache
 C:\Users\LKM\Documents\Visual Studio 2017\Project\Fektavimasis\Fektavimasis\obj\Debug\Fektavimasis.csproj.CoreCompileInputs.cache
 C:\Users\LKM\Documents\Visual Studio 2017\Project\Fektavimasis\Fektavimasis\obj\Debug\Fektavimasis.csproj.CopyComplete
 C:\Users\LKM\Documents\Visual Studio 2017\Project\Fektavimasis\Fektavimasis\obj\Debug\Fektavimasis.dll
