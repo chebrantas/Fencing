@@ -128,14 +128,32 @@ namespace Fektavimasis.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ParticipantWomenId,NameSurname")] ParticipantWoman participantWomen)
+        public ActionResult Create([Bind(Include = "ParticipantWomenId,NameSurname")] ParticipantWoman participantWomen, string NameSurnameList)
         {
             if (ModelState.IsValid)
             {
-                db.ParticipantWomen.Add(participantWomen);
-                db.SaveChanges();
+                if (NameSurnameList == "")
+                {
+                    db.ParticipantWomen.Add(participantWomen);
+                    db.SaveChanges();
 
-                return RedirectToAction("Create");
+                    return RedirectToAction("Create");
+                }
+                else
+                {
+                    string NameList = NameSurnameList.Trim().Replace("\t", " ").Replace("#", "").Replace("\r\n", "#");
+                    List<string> varduSarasas = NameList.Split('#').ToList();
+
+                    foreach (string item in varduSarasas)
+                    {
+                        ParticipantWoman insertWomen = new ParticipantWoman { NameSurname = item };
+                        db.ParticipantWomen.Add(insertWomen);
+                    }
+                    //db.ParticipantMens.Add(participantMen);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Create");
+                }
             }
 
             return View(participantWomen);

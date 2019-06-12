@@ -128,18 +128,60 @@ namespace Fektavimasis.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ParticipantMenId,NameSurname")] ParticipantMen participantMen)
+        public ActionResult Create([Bind(Include = "ParticipantMenId,NameSurname")] ParticipantMen participantMen, string NameSurnameList)
         {
+
             if (ModelState.IsValid)
             {
-                db.ParticipantMens.Add(participantMen);
+                if (NameSurnameList == "")
+                {
+                    db.ParticipantMens.Add(participantMen);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Create");
+                }
+                else
+                {
+                    string NameList = NameSurnameList.Trim().Replace("\t", " ").Replace("#", "").Replace("\r\n", "#");
+                    List<string> varduSarasas = NameList.Split('#').ToList();
+
+                    foreach (string item in varduSarasas)
+                    {
+                        ParticipantMen insertMen = new ParticipantMen { NameSurname = item };
+                        db.ParticipantMens.Add(insertMen);
+                    }
+                    //db.ParticipantMens.Add(participantMen);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Create");
+                }
+            }
+
+            return View(participantMen);
+        }
+
+        public ActionResult Create1([Bind(Include = "ParticipantMenId,NameSurname")] ParticipantMen participantMen, string NameSurnameList)
+        {
+            string NameList = NameSurnameList.Trim().Replace("\t", " ").Replace("#", "").Replace("\r\n", "#");
+            List<string> varduSarasas = NameList.Split('#').ToList();
+
+            if (ModelState.IsValid)
+            {
+                foreach (string item in varduSarasas)
+                {
+                    ParticipantMen insertMen = new ParticipantMen { NameSurname = item };
+                    db.ParticipantMens.Add(insertMen);
+                }
+                //db.ParticipantMens.Add(participantMen);
                 db.SaveChanges();
 
                 return RedirectToAction("Create");
             }
 
+            ViewBag.testukas = varduSarasas.Count();
             return View(participantMen);
         }
+
 
         // GET: ParticipantMen/Edit/5
         public ActionResult Edit(int? id)

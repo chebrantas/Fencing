@@ -54,7 +54,9 @@ namespace Fektavimasis.Controllers
         private List<SelectListItem> Members(int id = 0)
         {
             List<SelectListItem> listSelectListResult = new List<SelectListItem>();
-            foreach (var item in db.ParticipantWomen)
+            var SortedParticipantWomen = db.ParticipantWomen.OrderBy(x => x.NameSurname);
+
+            foreach (var item in SortedParticipantWomen)
             {
                 SelectListItem selectListResult = new SelectListItem()
                 {
