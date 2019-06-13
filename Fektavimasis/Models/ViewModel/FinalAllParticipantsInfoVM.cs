@@ -9,6 +9,7 @@ namespace Fektavimasis.Models.ViewModel
     {
         public int ID { get; set; }
         public string NameSurname { get; set; }
+        public int TotalFights { get; set; }
         public int Win { get; set; }
         public int PiercingTotal { get; set; }
         public int ReceivedTotal { get; set; }

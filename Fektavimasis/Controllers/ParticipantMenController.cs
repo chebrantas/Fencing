@@ -75,6 +75,7 @@ namespace Fektavimasis.Controllers
             {
                 ID = g.Key,//irasomas Dalyvio ID
                 NameSurname = db.ParticipantMens.Where(p => p.ParticipantMenId == g.Key).FirstOrDefault().NameSurname, //irasomas dalyvio VArdasPavarde
+                TotalFights = g.Count(t=>t.ParticipantMenId==g.Key)+ g.Count(t => t.ParticipantCompetingId == g.Key),
                 Win = g.Count(i => i.Piercing == 3),
                 PiercingTotal = g.Sum(s => s.Piercing),
                 ReceivedTotal = g.Sum(s => s.Received)
